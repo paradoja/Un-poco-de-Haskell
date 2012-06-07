@@ -1,0 +1,3 @@
+Prelude> getLine
+hola
+"hola"

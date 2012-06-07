@@ -1,0 +1,913 @@
+.cabecera
+  %asset imgs/haskell-logo.svg
+  .centro
+    %span.deck-status-current
+    \/
+    %span.deck-status-total
+  .derecha
+    Haskell
+
+.slide
+  %asset imgs/haskell-logo.svg
+  .derecha
+    %h1
+      Haskell
+    %p
+      Abby Henríquez Tejera
+    %p
+      paradoja@gmail.com
+    %p
+      @paradoja
+
+.slide
+  %h1 ¿Qué es Haskell?
+
+  Haskell es:
+  %ul
+    %li.only-current.slide
+      Un lenguaje funcional
+    %li.slide
+      Un lenguaje
+      %b puramente
+      funcional
+    %li.slide
+      Fuertemente tipado
+    %li.slide
+      Con evaluación perezosa (paso de parámetros por necesidad)
+    %li.slide
+      Con una muy buena comunidad creciente
+    %li.slide
+      Con buenas implementaciones de compiladores e intérpretes
+    %li.slide
+      Con 20 años de vida (pero con unos 80 años de teoría detrás)
+
+.slide
+  %h1 ¿Cómo será esta charla?
+
+  Por supuesto, no podemos ver todo Haskell.
+
+  .slide
+    %p La sintaxis es algo distinta a la de otros lenguajes más corrientes.
+
+    %p La semántica no tiene nada que ver.
+
+    %p
+      Nos centraremos en intentar saborear un poco de Haskell.
+
+  .slide
+    %snippet quicksort.hs
+
+  .slide
+    %p Pero primero, un poco de teoría. Muy poco, ¡prometido!
+
+.slide
+  %h1 Programación funcional (unos breves apuntes)
+
+  %p
+    %b Funciones
+
+  %p
+    No hay efectos colaterales (side efects).
+
+  %p
+    Las funciones son deterministas: siempre devuelven la
+    misma salida para la misma entrada.
+
+.slide
+  %h1 Programación funcional (2 - transparencia referencial)
+
+  %p
+    %b Transparencia referencial
+    .note
+      Toda expresión puede ser sustituida por su valor.
+
+  %p
+    Razonamiento local
+
+  %p
+    El orden de ejecución no es importante.
+
+  .note
+    Paralelismo, optimizaciones...
+
+.slide
+  %h1 Programación funcional (y 3 - iterando y cuestiones de estado)
+
+  %p ¿Qué pasa con los bucles?
+
+  %ul
+    %li.slide recursión
+    %li.slide recursión final &rArr; función recursiva, pero proceso iterativo
+    %li.slide funciones auxiliares (map, filter...)
+    %li.slide folds, fmap y otras herramientas de mayor nivel
+
+  .slide
+    %p ¿Y el estado?
+    .note No desaparece, se hace explícito.
+
+.slide
+  %h1 Tipos duros
+
+  .slide
+    %p
+      Haskell se toma en serio los tipos: Hindley - Milner
+
+  .note
+    La naturaleza puramente funcional permite el sistema de tipos HM &rArr;
+    Inferencia de tipos (the real deal).
+
+  .slide
+    %p
+      Patrón oro de inferencia de tipos
+
+    %p
+      La inferencia de tipos permite programar casi como en lenguajes
+      dinámicos además que el sistema de tipos en vez de restringir,
+      aporta aún mayor expresividad al lenguaje.
+
+.slide
+  %h1 Evaluación perezosa
+
+  .only-current.slide
+    %table
+      %tr
+        %th Evaluación estricta
+        %th
+          Evaluación normal
+          .note Paso de parámetros por nombre
+      %tr
+        %td
+          %tt dobla(suma(2,3))
+        %td
+          %tt dobla(suma(2,3))
+      %tr
+        %td
+          %tt dobla(2+3)
+        %td
+          %tt suma(2,3) + suma(2,3)
+      %tr
+        %td
+          %tt dobla(5)
+        %td
+          %tt (2+3) + suma(2,3)
+      %tr
+        %td
+          %tt 5 + 5
+        %td
+          %tt (2+3) + (2+3)
+      %tr
+        %td
+          %tt 10
+        %td
+          %tt 5 + (2+3)
+      %tr
+        %td
+          %tt
+        %td
+          %tt 5 + 5
+      %tr
+        %td
+          %tt
+        %td
+          %tt 10
+
+  .slide
+    %table
+      %tr
+        %th Evaluación estricta
+        %th
+          Evaluación perezosa
+      %tr
+        %td
+          %tt dobla(suma(2,3))
+        %td
+          %tt dobla(suma(2,3))
+      %tr
+        %td
+          %tt dobla(2+3)
+        %td
+          %tt suma(2,3) + suma(2,3)
+      %tr
+        %td
+          %tt dobla(5)
+        %td
+          %tt (2+3) + (2+3)
+      %tr
+        %td
+          %tt 5 + 5
+        %td
+          %tt (2+3) + (2+3)
+      %tr
+        %td
+          %tt 10
+        %td
+          %tt 10
+
+  .slide
+    %p
+      La evaluación perezosa es completamente distinta de la
+      estricta. Permite hacer cosas que sin ella no serían posibles.
+
+    %p
+      Algo no se evalúa si no es necesario evaluarlo, y sólo se evalúa
+      cuando haga falta.
+
+    %p
+      También hace, en ciertas situaciones, algo más complicado
+      razonar sobre el uso de la memoria (¿qué pasa con los
+      %em thunks
+      %span> ?).
+
+.slide
+  %h1 Uso de Haskell en el mundo real
+
+  .popup
+    %p GHC, Hugs, otros compiladores e intérpretes
+    %p Darcs (SDCV)
+    %p Xmonad (gestor de ventanas)
+    %p Quickcheck (sistema de pruebas)
+    %p Pugs (implementación de Perl 6)
+    %p Agda, Paradox... (probadores de teoremas)
+    %p Yesod, Snap, Happstack (frameworks para web)
+    %p Yi (editor)
+    %p Lambdabot (bot IRC)
+    %p ...
+
+  %p Transformaciones de código PHP (FB)
+  %p Monitorización de sistemas distribuidos de tiempo real (NASA)
+  %p Sistemas de queja por abuso (AT&T)
+  %p Finanzas y sistemas automáticos de operaciones bursátiles
+  %p Desarrollo de aplicaciones web
+  %p Especificación, modelado, diseño y verificación de circuitos integrados
+  %p Investigación biomédica
+  %p Simulación de sistemas de RFID
+  %p IA
+  %p ...
+
+.slide
+  %h1 Algunos tipos básicos
+
+  .popup
+    %snippet tipo_de.hs
+    Indica el tipo de una expresión. En
+    el intérprete (por ejemplo, en
+    %span.mono ghci
+    o
+    %span.mono hugs
+    %span>) para sacar el tipo de una expresión pondríamos:
+    %snippet ghci_t.hs
+    Haskell tiene una sintaxis para expresiones, y otra para tipos.
+
+  .note
+    Hablar de ghci, Hugs. Hablar de la distinta sintaxis en
+    intérprete.
+
+  - 1.upto(6) do |i|
+    .chico
+      %snippet tipos/#{i+1}.hs
+
+.slide
+  %h1 Algunos tipos básicos (y 2)
+
+  .chico
+    %snippet tipos/7.hs
+
+  - 8.upto(12) do |i|
+    .chico
+      %snippet tipos/#{i}.hs
+
+.slide
+  %h1 Tipos
+
+  .popup
+    En el intérprete, para darle nombres a las cosas usamos
+    %span.mono let:
+    %snippet let.hs
+    La sintaxis no es la misma para cuando escribimos código fuera el
+    intérprete. En un fichero de código fuente pondríamos:
+    %snippet let-source.hs
+    La identificación del tipo es (casi siempre) opcional, pero es
+    buena práctica incluirla.
+
+  - 3.upto(8) do |i|
+    .slide
+      .chico
+        %snippet clases/clases-#{i}.hs
+
+.slide
+  %h1 Otro tipo básico: las funciones
+
+  .note
+    No hay paréntesis, comas ni leches
+
+  .slide
+    - 1.upto(2) do |i|
+      .chico
+        %snippet funciones/abs-#{i}.hs
+
+  - 3.upto(5) do |i|
+    .slide
+      .chico
+        %snippet funciones/abs-#{i}.hs
+
+.slide
+  %h1 Clases
+
+  .popup
+    %snippet funciones/abs-3.hs
+    &nbsp;
+    %snippet funciones/abs-5.hs
+
+  - 1.upto(2) do |i|
+    .chico
+      %snippet clases/clases-#{i}.hs
+
+  .note
+    Interfaces Java, traits Scala, abstract classes C++
+    Puedes instanciar varias
+    Pueden tener implementaciones por defectoo
+
+  - 9.upto(10) do |i|
+    .slide
+      .chico
+        %snippet clases/clases-#{i}.hs
+
+
+.slide
+  %h1 Algo más sobre funciones
+
+  - 1.upto(3) do |i|
+    .slide
+      .chico
+        %snippet funciones/div-#{i}.hs
+
+  .note
+    %p
+      Dos
+      %span.mono ->,
+      curioso: una función con dos parámetros.
+
+.slide
+  %h1 Algo más sobre funciones (2)
+
+  %p
+    ¿O una función que devuelve una función?
+
+  .chico
+    %snippet funciones/div-3.hs
+
+  .chico
+    %snippet funciones/div-4.hs
+
+  .note
+    Asociatividad. En Haskell explícita
+
+  - 6.upto(7) do |i|
+    .slide
+      .chico
+        %snippet funciones/div-#{i}.hs
+
+.slide
+  %h1 Algo más sobre funciones (y 3)
+
+  %p
+    En Haskell todo sabe a curry.
+
+  .note
+    Es automático
+
+  - 7.upto(9) do |i|
+    .slide
+      .chico
+        %snippet funciones/div-#{i}.hs
+
+.slide
+  %h1 Operadores
+
+  .chico
+    %snippet operadores/op-1.hs
+
+  .note
+    %p
+      Los operadores son funciones (binarias), que no van prefijos,
+      sino infijos.
+
+  .slide
+    .chico
+      %snippet operadores/op-2.hs
+
+  .slide
+    - 3.upto(4) do |i|
+      .chico
+        %snippet operadores/op-#{i}.hs
+
+.slide
+  %h1 Operadores (2)
+
+  .note
+    Diferencias: infijo, caracteres
+    Precedencia
+
+  - 5.upto(7) do |i|
+    .slide
+      .chico
+        %snippet operadores/op-#{i}.hs
+
+.slide
+  %h1 Operadores (y 3)
+
+  .popup
+    %snippet operadores/suma.hs
+
+  - 8.upto(13) do |i|
+    .slide
+      .chico
+        %snippet operadores/op-#{i}.hs
+
+.slide
+  %h1 Sintaxis básica
+
+  .slide
+    .chico
+      %snippet sintaxis/sin-1.hs
+
+  .note
+    Es una expresión (todo en Haskell lo es).
+    %br
+    No puede faltar el else.
+    %br
+    La indentación es importante (aunque podemos no usarla).
+
+  .note
+    No hay null en Haskell.
+
+  .slide
+    .grande
+      %snippet sintaxis/sin-1-bis.hs
+
+    .grande
+      %snippet sintaxis/sin-1-bis-bis.hs
+
+.slide
+  %h1 Sintaxis básica (2)
+
+  .chico
+    %snippet sintaxis/sin-2.hs
+
+  .note
+    Introduce un bloque léxico. Muy útil para introducir definiciones
+    locales.
+
+  .note
+    La coma esa rara.
+
+.slide
+  %h1 Sintaxis básica (3)
+
+  .chico
+    %snippet sintaxis/sin-3.hs
+    .note
+      case
+
+  .slide
+    .chico
+      %snippet sintaxis/sin-4.hs
+      .note
+        patrón, definición por partes
+
+  .slide
+    .chico
+      %snippet sintaxis/sin-5.hs
+      .note
+        where
+        %br
+        ineficiente :(
+
+  .slide
+    .chico
+      %snippet sintaxis/sin-5-bis.hs
+
+    .note
+      Ver _.
+
+.slide
+  %h1 Sintaxis básica (4)
+
+  .popup
+    El operador concatenación:
+    %snippet sintaxis/concatenacion-1.hs
+    Concatena un elemento al principio de una lista:
+    %snippet sintaxis/concatenacion-2.hs
+    Puede ser usado en los patrones (como en el segundo y tercer ejemplos).
+    Es asociativo por la derecha:
+    %snippet sintaxis/concatenacion-3.hs
+    (Para quien tenga curiosidad, se llama
+    %emph cons,
+    por cierto).
+
+  .chico
+    %snippet sintaxis/sin-6.hs
+  .note
+    Guardas
+
+  .slide
+
+    .medio
+      %snippet sintaxis/sin-7.hs
+    .note
+      Patrones...
+
+  .slide
+    .medio
+      %snippet sintaxis/sin-7-bis.hs
+
+  .slide
+    .medio
+      %snippet sintaxis/sin-8.hs
+
+    .note
+      Extensión
+
+.slide
+  %h1 Sintaxis básica (5)
+
+  .chico
+    %snippet sintaxis/sin-9.hs
+
+  .slide
+    λ
+    .chico
+      %snippet sintaxis/sin-10.hs
+
+  .slide
+    .chico
+      %snippet sintaxis/sin-11.hs
+
+  .slide
+    .chico
+      %snippet sintaxis/sin-12.hs
+
+.slide
+  %h1 Sintaxis básica (y 6)
+
+  .chico
+    %snippet sintaxis/sin-13.hs
+  .note
+    Compresión de listas
+
+  .slide
+    .chico
+      %snippet sintaxis/sin-14.hs
+
+  .note
+    Azúcar sintáctico
+    Filtros
+
+  .slide
+    .chico
+      %snippet sintaxis/sin-15.hs
+
+.slide
+  %h1 Juguemos un poco
+
+  .popup
+    El operador para sacar el enésimo valor de una lista es:
+    %snippet juguemos/indice-1.hs
+    Por ejemplo:
+    %snippet juguemos/indice-2.hs
+
+    Para sacar la cabeza de una lista usamos:
+    %snippet juguemos/head.hs
+    y para la cola:
+    %snippet juguemos/tail.hs
+
+  .slide
+    .chico
+      %snippet juguemos/juguemos-1.hs
+
+    .note
+      zip coge la lista más corta. Laziness con la larga.
+
+  .slide
+    .chico
+      %snippet juguemos/juguemos-2.hs
+
+    .note
+      $ y también patrón con la tupla.
+
+  .slide
+    .chico
+      %snippet juguemos/juguemos-3.hs
+
+  .slide
+    .chico
+      %snippet juguemos/juguemos-4.hs
+
+  .slide
+    Atentos
+
+  .slide
+    .chico
+      %snippet juguemos/juguemos-5.hs
+
+.slide
+  %h1 Juguemos un poco (2)
+
+  .chico
+    %snippet juguemos/juguemos-5.hs
+
+  .chico
+    %snippet juguemos/juguemos-6.hs
+
+  .chico
+    %snippet juguemos/juguemos-6-bis.hs
+
+  .slide
+    .chico
+      %snippet juguemos/juguemos-7.hs
+
+.slide
+  %h1 Juguemos un poco (3)
+
+  - 8.upto(12) do |i|
+    .slide
+      .chico
+        %snippet juguemos/juguemos-#{i}.hs
+
+.slide
+  %h1 Juguemos un poco (4)
+
+  .popup
+    %snippet juguemos/juguemos-10.hs
+    %br
+    %snippet juguemos/juguemos-11.hs
+
+  - 12.upto(13) do |i|
+    .chico
+      %snippet juguemos/juguemos-#{i}.hs
+
+  - 14.upto(15) do |i|
+    .slide
+      .chico
+        %snippet juguemos/juguemos-#{i}.hs
+
+  .note
+    Definición libre de puntos (pointfree)
+
+  .slide
+    .chico
+      %snippet juguemos/juguemos-13.hs
+
+    .chico
+      %snippet juguemos/juguemos-16.hs
+
+.slide
+  %h1 Juguemos un poco (5)
+
+  .note
+    (.) es una función (operador) que existe para devolver nuevas
+    funciones a partir de otras pasadas. En Haskell hay bastantes de
+    ellas.
+
+  .grande
+    %snippet juguemos/juguemos-17.hs
+
+  .slide
+    - 18.upto(19) do |i|
+      .chico
+        %snippet juguemos/juguemos-#{i}.hs
+
+  .popup
+    %snippet juguemos/juguemos-20.hs
+    Ejemplo:
+    %snippet juguemos/juguemos-21.hs
+
+  .slide
+    .chico
+      %snippet juguemos/juguemos-22.hs
+    .note
+      Otro ejemplito,
+      %span.mono flip.
+
+  .slide
+    .chico
+      %snippet juguemos/juguemos-23.hs
+
+.slide
+  %h1 Juguemos un poco (6)
+
+  - 24.upto(28) do |i|
+    .slide
+      .chico
+        %snippet juguemos/juguemos-#{i}.hs
+
+  .note
+    ¿Y si queremos hacer nuestro propio
+    %span.mono sum
+    o
+    %span.mono product?
+
+.slide
+  %h1 Juguemos un poco (y 7)
+
+  - 29.upto(30) do |i|
+    .slide
+      .chico
+        %snippet juguemos/juguemos-#{i}.hs
+
+  .note
+    Recursividad. De todas formas, en Haskell solemos ir por otros
+    derroteros...
+
+  .slide.grande
+    %snippet juguemos/juguemos-31.hs
+
+  - 32.upto(34) do |i|
+    .slide
+      .chico
+        %snippet juguemos/juguemos-#{i}.hs
+
+.slide
+  %h1 IO
+
+  .popup
+    Si tenemos
+    %em transparencia referencial,
+    una expresión se puede sustituir por su valor sin cambiar el
+    funcionamiento del programa.
+
+  ¿Entrada salida en Haskell? ¿Qué pasa con la transparencia referencial?
+
+  - 1.upto(2) do |i|
+    .slide
+      .chico
+        %snippet io/io-#{i}.hs
+
+  .note
+    ¡Hemos roto la transparencia referencial!
+    %span.mono getLine
+    es una función que devuelve una ristra distinta según lo que
+    escribamos. El mundo ya no tiene sentido.
+
+  .note
+    Fin de la charla.
+
+  .note
+    ¿O se puede salvar esto? Mmmhh...
+    ¿Qué decíamos que
+    %span.mono leeRistra
+    devolvía? Veamos.
+
+  - 3.upto(3) do |i|
+    .slide
+      .chico
+        %snippet io/io-#{i}.hs
+
+  .note
+    ¡No devuelven ristras! Podemos guardar las cápsulas de cianuro.
+
+.slide
+  %h1 IO (2)
+
+  .popup
+    %snippet io/io-5.hs
+
+  %span.mono IO String
+  &ne;
+  %span.mono String
+
+  .note
+    %p
+      %span.mono getLine
+      siempre devuelve lo mismo: una acción (
+      %span.mono> IO a
+      )
+
+  .slide
+    %p
+      Evaluar una acción &ne; Ejecutar dicha acción
+
+    .note
+      Acciones
+
+      Encadenamiento de acciones
+
+    .slide
+      - 6.upto(7) do |i|
+        .chico
+          %snippet io/io-#{i}.hs
+
+  .note
+    IO ()
+    () noop
+
+.slide
+  %h1 IO (3)
+
+  .popup
+    %snippet io/io-5.hs
+    &nbsp;
+    %snippet io/io-7.hs
+
+  - 8.upto(9) do |i|
+    .slide
+      .chico
+        %snippet io/io-#{i}.hs
+
+  - 10.upto(11) do |i|
+    .slide
+      .chico
+        %snippet io/io-#{i}.hs
+
+.slide
+  %h1 IO (4)
+
+  - 15.upto(16) do |i|
+    .chico
+      %snippet io/io-#{i}.hs
+
+  %br
+
+  - 12.upto(14) do |i|
+    .slide
+      .chico
+        %snippet io/io-#{i}.hs
+
+.slide
+  %h1 IO (y 5)
+
+  .chico
+    %snippet io/io-17.hs
+
+  .note
+    %span.mono let
+    (en
+    %span.mono do), con él introducimos nuevas definiciones en un
+    bloque do.
+
+  .note
+    %p
+      El intérprete es poco más que una acción que hace un
+      %span.mono getLine,
+      lee lo introducido, lo evalúa e imprime luego con
+      %span.mono putStrLn,
+      como en un bloque
+      %span.mono do,
+      y de ahí viene la pequeña diferencia de sintaxis entre el
+      intérprete y el código normal.
+
+  .slide
+    .chico
+      %snippet io/io-18.hs
+    ¿Cuántas veces se intenta leer de la entrada estándar?
+
+.slide
+  %h1 Cosas que no hemos visto
+
+  Haskell es característico principalmente por
+  %ul
+    %li.slide ser funcional &lArr; de esto algo vimos
+    %li.slide ser puramente funcional &lArr; de esto vimos algo menos
+    %li.slide ser no estricto &lArr; de esto también entramos un poco
+    %li.slide el sistema de tipos &lArr; de esto no vimos apenas
+
+  .slide
+    %p
+      Por supuesto falta muchísimo, pero es una pena no haber visto
+      mónadas.
+
+  .note
+    No hay tiempo, y para entenderlas bien (su utilidad) tendrían que
+    aprender mucho antes.
+
+.slide
+  %h1 Cosas que no hemos visto (y 2)
+
+  - 1.upto(3) do |i|
+    .slide
+      .chico
+        %snippet extra/extra-#{i}.hs
+
+  .slide
+    - 4.upto(5) do |i|
+      .chico
+        %snippet extra/extra-#{i}.hs
+
+  - 6.upto(6) do |i|
+    .slide
+      .chico
+        %snippet extra/extra-#{i}.hs
+
+  .slide
+    #sube-menos.popup
+      %snippet sintaxis/sin-13.hs
+      %br
+      %snippet sintaxis/sin-15.hs
+      %br
+      %snippet extra/extra-7.hs
+
+.slide
+  %h1 Preguntas
+
+  .slide
+    (¿Qué comemos?)

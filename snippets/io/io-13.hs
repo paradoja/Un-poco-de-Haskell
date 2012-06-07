@@ -1,0 +1,1 @@
+return "hola" :: IO String

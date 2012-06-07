@@ -1,0 +1,137 @@
+/*
+ * Write here your own styles.
+ * Compass modules are available
+ */
+
+
+@import url('/assets/vendor/deck.js/themes/style/swiss.css');
+@import url('/assets/vendor/deck.js/themes/transition/horizontal-slide.css');
+
+.but-current {
+    display: inline;
+}
+
+.only-current {
+    display: none;
+}
+
+.deck-current {
+    &.but-current {
+        display: none;
+    }
+
+    &.only-current {
+        display: block;
+    }
+}
+
+ul {
+    li {
+        list-style-type: none;
+    }
+}
+
+.small {
+    font-size: small;
+}
+
+.derecha {
+    float: right;
+}
+
+.centro {
+    position: absolute;
+    top: 0;
+    left: 45%;
+}
+
+.highlight {
+    border: blue 1px solid;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+table {
+    background-color: #F8F8F8;
+    width: 100%;
+
+    th {
+        text-align: left;
+    }
+}
+
+$tam-cabecera: 25px;
+$margen-bajo-cabecera: 10px;
+
+.cabecera {
+    position: absolute;
+    top: -$tam-cabecera - $margen-bajo-cabecera;
+    height: $tam-cabecera;
+    width: 100%;
+    background: black;
+    color: white;
+
+    img {
+        height: $tam-cabecera;
+    }
+}
+
+.grande {
+    margin-bottom: 10px;
+}
+
+.medio {
+    overflow: hidden;
+    width: 750px;
+    background-color: #F8F8F8;
+    margin-bottom: 10px;
+}
+
+.chico {
+    @extend .medio;
+    width: 560px;
+}
+
+.popup {
+    position: absolute;
+    right: 10px;
+
+    width: 460px;
+
+    background-color: grey;
+    color: white;
+
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 10;
+
+    .highlight {
+        color: black;
+    }
+}
+
+#sube-mucho {
+    top: -517px;
+}
+
+#sube-menos {
+    top: -457px;
+    right: -40px;
+}
+
+.mono {
+    font-family: mono;
+}
+
+.deck-container {
+    top: $tam-cabecera + $margen-bajo-cabecera;
+    position: relative;
+}
+
+body {
+    margin: 0;
+}
+
+.deck-container > .slide .deck-before, .deck-container > .slide .deck-previous {
+    opacity: 1;
+}

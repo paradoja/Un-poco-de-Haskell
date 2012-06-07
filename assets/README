@@ -1,0 +1,4 @@
+Put in this directory any file that you want to use in your presentation (images, et al)
+
+Files ending with .coffee will be compiled with CoffeeScript.
+Files ending with .scss will be compiled with SASS. Compass is available.

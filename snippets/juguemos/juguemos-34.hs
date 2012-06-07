@@ -1,0 +1,1 @@
+sumatorio = foldl (+) 0

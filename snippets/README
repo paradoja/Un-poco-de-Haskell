@@ -1,0 +1,4 @@
+Put in this directory any snippet of code that you want to include in your presentation.
+You need to install Pygmentize if you want to format the code.
+The snippets are loaded with a <snippet>name.rb</snippet> tag.
+With Haml, you can use %snippet name.rb

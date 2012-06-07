@@ -1,0 +1,24 @@
+/* Add here your styles for the /remote view */
+
+.but-current {
+}
+
+.only-current {
+    background: grey;
+    display: block;
+}
+
+.deck-current {
+  .but-current {
+      background: grey;
+      display: inline;
+  }
+
+  .only-current {
+  }
+}
+
+.note {
+    background: red;
+    font-weight: bold;
+}
